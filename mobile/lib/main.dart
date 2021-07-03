@@ -127,8 +127,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
   Future<String> uploadImage(XFile file) async {
     String fileName = file.path.split('/').last;
-    // final url = "https://paragony.kukla.tech/api/v1/paragon";
-    final url = "http://10.0.0.10:8080";
+    final url = "https://degregar-paragony.herokuapp.com";
+    // final url = "http://10.0.0.10:8080";
     Uri uri = Uri.parse(url);
     http.MultipartRequest request = http.MultipartRequest('POST', uri);
     request.files.add(await http.MultipartFile.fromPath('receipt', file.path));

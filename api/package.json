@@ -10,7 +10,8 @@
         "tesseract.js": "^2.1.4"
     },
     "scripts": {
-        "start": "yarn tsc --watch",
+        "build": "yarn tsc",
+        "start": "node dist/index.js",
         "tsc": "tsc"
     },
     "devDependencies": {
