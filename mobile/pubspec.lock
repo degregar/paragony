@@ -71,6 +71,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -205,13 +212,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
-  tesseract_ocr:
-    dependency: "direct main"
-    description:
-      name: tesseract_ocr
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.1"
   test_api:
     dependency: transitive
     description:

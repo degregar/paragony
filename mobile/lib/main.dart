@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:convert';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 import "package:flutter/foundation.dart";
 import "package:http/http.dart" as http;
 
-import "package:tesseract_ocr/tesseract_ocr.dart";
+import "package:dio/dio.dart";
 
 Future<void> main() async {
   // Ensure that plugin services are initialized so that `availableCameras()`
@@ -57,7 +58,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       // Get a specific camera from the list of available cameras.
       widget.camera,
       // Define the resolution to use.
-      ResolutionPreset.medium,
+      ResolutionPreset.high,
     );
 
     // Next, initialize the controller. This returns a Future.
@@ -102,21 +103,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             // Attempt to take a picture and get the file `image`
             // where it was saved.
             final image = await _controller.takePicture();
-
-            String text =
-                await TesseractOcr.extractText(image.path, language: 'pol');
-            print("READ");
-            print(text);
-
-            // http.MultipartRequest request = http.MultipartRequest('POST', uri);
-
-            // final directory = getApplicationDocumentsDirectory();
-            // GallerySaver.saveImage(directory . image.path);
-
-            // final url = "https://paragony.kukla.tech/api/v1/paragon";
-            final url = "http://10.0.0.35:8080";
-            Uri uri = Uri.parse(url);
-            var response = await http.get(uri);
+            await uploadImage(image);
 
             // If the picture was taken, display it on a new screen.
             await Navigator.of(context).push(
@@ -137,6 +124,33 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       ),
     );
   }
+
+  Future<String> uploadImage(XFile file) async {
+    String fileName = file.path.split('/').last;
+    // final url = "https://paragony.kukla.tech/api/v1/paragon";
+    final url = "http://10.0.0.10:8080";
+    Uri uri = Uri.parse(url);
+    http.MultipartRequest request = http.MultipartRequest('POST', uri);
+    request.files.add(await http.MultipartFile.fromPath('receipt', file.path));
+
+    var responseString;
+
+    try {
+      http.StreamedResponse response = await request.send();
+      var responseBytes = await response.stream.toBytes();
+      responseString = utf8.decode(responseBytes);
+      print(response.statusCode);
+      print('\n\n');
+      print('RESPONSE WITH HTTP');
+      print(responseString);
+      print('\n\n');
+    } catch (e) {
+      print("error!");
+      print(e);
+    }
+
+    return responseString;
+  }
 }
 
 // A widget that displays the picture taken by the user.
@@ -151,9 +165,15 @@ class DisplayPictureScreen extends StatelessWidget {
     debugPrint(imagePath);
     return Scaffold(
       appBar: AppBar(title: const Text('Display the Picture')),
-      // The image is stored as a file on the device. Use the `Image.file`
-      // constructor with the given path to display the image.
       body: Image.file(File(imagePath)),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => Text("test")),
+          );
+        },
+        child: const Icon(Icons.camera_alt),
+      ),
     );
   }
 }

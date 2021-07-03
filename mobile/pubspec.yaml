@@ -31,7 +31,7 @@ dependencies:
   path_provider:
   path:
   http:
-  tesseract_ocr: ^0.3.1
+  dio:
 
 dev_dependencies:
   flutter_test:
@@ -48,8 +48,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/pol.traineddata
+  # assets:
+  #   - assets/pol.traineddata
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
