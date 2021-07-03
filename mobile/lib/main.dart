@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import "package:flutter/foundation.dart";
 import "package:http/http.dart" as http;
 
+import "package:tesseract_ocr/tesseract_ocr.dart";
+
 Future<void> main() async {
   // Ensure that plugin services are initialized so that `availableCameras()`
   // can be called before `runApp()`
@@ -100,6 +102,11 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             // Attempt to take a picture and get the file `image`
             // where it was saved.
             final image = await _controller.takePicture();
+
+            String text =
+                await TesseractOcr.extractText(image.path, language: 'pol');
+            print("READ");
+            print(text);
 
             // http.MultipartRequest request = http.MultipartRequest('POST', uri);
 
