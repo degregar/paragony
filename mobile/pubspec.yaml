@@ -30,7 +30,7 @@ dependencies:
   camera:
   path_provider:
   path:
-  gallery_saver:
+  http:
 
 dev_dependencies:
   flutter_test:

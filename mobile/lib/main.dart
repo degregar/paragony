@@ -5,8 +5,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 import "package:flutter/foundation.dart";
-import 'package:gallery_saver/gallery_saver.dart';
-import 'package:path_provider/path_provider.dart';
 import "package:http/http.dart" as http;
 
 Future<void> main() async {
@@ -103,12 +101,15 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             // where it was saved.
             final image = await _controller.takePicture();
 
-            Uri uri = Uri.parse("https://paragony.kukla.tech/api/v1/paragon");
-            var response = await http.post(uri, body: {'name': 'paragon'});
             // http.MultipartRequest request = http.MultipartRequest('POST', uri);
 
             // final directory = getApplicationDocumentsDirectory();
             // GallerySaver.saveImage(directory . image.path);
+
+            // final url = "https://paragony.kukla.tech/api/v1/paragon";
+            final url = "http://10.0.0.35:8080";
+            Uri uri = Uri.parse(url);
+            var response = await http.get(uri);
 
             // If the picture was taken, display it on a new screen.
             await Navigator.of(context).push(
