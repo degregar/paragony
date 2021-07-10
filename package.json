@@ -1,9 +1,12 @@
 {
-    "private": true,
-    "workspaces": ["mobile", "api"],
-    "scripts": {
-      "build": "yarn workspace api run build",
-      "start": "yarn workspace api run start"
-    }
+  "private": true,
+  "workspaces": [
+    "mobile",
+    "api",
+    "desktop"
+  ],
+  "scripts": {
+    "build": "yarn workspace api run build",
+    "start": "yarn workspace api run start"
   }
-  
+}
