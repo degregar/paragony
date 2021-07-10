@@ -54,3 +54,9 @@ app.post("/sanitize", async (req: any, res: any) => {
     })
   }
 })
+
+
+  // start the Express server
+  app.listen(port, () => {
+    console.log(`server started at http://localhost:${port}`);
+  });
