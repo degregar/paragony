@@ -1,6 +1,7 @@
 const fs = require('fs')
 
 const sharp = require("sharp");
+const path = require('path')
 
 const express = require("express");
 const fileUpload = require("express-fileupload");
@@ -27,8 +28,6 @@ app.get("/", (req: any, res: any) => {
 });
 
 app.post("/sanitize", async (req: any, res: any) => {
-
-  try {
     if (!req.files) {
       res.send({
         status: false,
@@ -41,18 +40,14 @@ app.post("/sanitize", async (req: any, res: any) => {
       const receiptPath = "./uploads/" + receiptFile.name;
       receiptFile.mv(receiptPath);
       
-      const pngFilePath = receiptPath.replace("jpg", "png");
-      const filePath = pngFilePath;
+      let pngFilePath = receiptPath.replace("jpg", "png");
+       pngFilePath = receiptPath.replace("png", "sharp.png");
       
-      await sharp(receiptPath).rotate().toFile(filePath);
+      sharp.cache(false)
+      await sharp(receiptPath).rotate().toFile(pngFilePath);
 
-      res.sendFile(filePath)
+      res.sendFile(path.resolve(pngFilePath))
     }
-  } catch (e) {
-    res.send({
-      status: 500
-    })
-  }
 })
 
 
