@@ -75,7 +75,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Take a picture')),
+      appBar: AppBar(title: const Text('Dodaj paragon')),
       // You must wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner until the
       // controller has finished initializing.
@@ -127,8 +127,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
   Future<String> uploadImage(XFile file) async {
     String fileName = file.path.split('/').last;
-    final url = "https://degregar-paragony.herokuapp.com";
-    // final url = "http://10.0.0.10:8080";
+    // final url = "https://degregar-paragony.herokuapp.com";
+    final url = "http://10.0.0.25:8080";
     Uri uri = Uri.parse(url);
     http.MultipartRequest request = http.MultipartRequest('POST', uri);
     request.files.add(await http.MultipartFile.fromPath('receipt', file.path));

@@ -1,5 +1,9 @@
+const appVersion = "0.1.0"
+
 import { recognize, saveRecognizedTextToFile, transformFile } from './mlUtils';
 
+const fs = require('fs')
+const path = require('path')
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
@@ -22,6 +26,17 @@ const runExpressApp = () => {
   app.get('/', (req: any, res: any) => {
     res.send('Hello world!');
   });
+
+
+  app.get("/mobile", (req: any, res: any) => {
+    const fileName = path.resolve('../mobile/build/app/outputs/flutter-apk/app-release.apk')
+    res.sendFile(fileName)
+  })
+
+  app.get("/desktop", (req: any, res: any) => {
+    const fileName = path.resolve('')
+    
+  })
 
   app.post('/', async (req: any, res: any) => {
     try {

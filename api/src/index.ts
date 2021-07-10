@@ -1,3 +1,7 @@
+const appVersion = '0.1.0'
+
+const fs = require('fs')
+
 const { createWorker } = require("tesseract.js");
 const sharp = require("sharp");
 
@@ -23,9 +27,19 @@ app.use(express.static("uploads"));
 // define a route handler for the default home page
 app.get("/", (req: any, res: any) => {
   res.send("Hello world!");
-  console.log(req);
-  console.log(res);
 });
+
+app.get("/mobile", (req: any, res: any) => {
+  const filename = 'app-release.apk';
+  res.sendFile(filename)
+  // const file = fs.readFileSync(filename, 'binary');
+  // const stats = fs.statSync(filename)
+  // res.setHeader('Content-Length', stats.size);
+  // res.setHeader('Content-Type', 'application/vnd.android.package-archive');
+  // res.setHeader('Content-Disposition', `attachment; filename=paragony-${appVersion}.apk`);
+  // res.write(file, 'binary');
+  // res.end();
+})
 
 const RECOGNITION_TIMEOUT = 30000;
 app.post("/", (req: any, res: any) => {

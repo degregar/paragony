@@ -2,8 +2,7 @@
   "private": true,
   "workspaces": [
     "mobile",
-    "api",
-    "desktop"
+    "api"
   ],
   "scripts": {
     "build": "yarn workspace api run build",
