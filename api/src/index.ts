@@ -48,5 +48,9 @@ app.post("/sanitize", async (req: any, res: any) => {
 
       res.sendFile(filePath)
     }
+  } catch (e) {
+    res.send({
+      status: 500
+    })
   }
 })

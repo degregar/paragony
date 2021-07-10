@@ -14,5 +14,9 @@
     "postinstall": "yarn electron-rebuild"
   },
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.17.1",
+    "sharp": "^0.28.3",
+    "tesseract.js": "^2.1.4"
+  }
 }
