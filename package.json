@@ -8,5 +8,8 @@
   "scripts": {
     "build": "yarn workspace api run build",
     "start": "yarn workspace api run start"
+  },
+  "dependencies": {
+    "caniuse-lite": "^1.0.30001243"
   }
 }
